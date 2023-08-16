@@ -120,26 +120,27 @@ const transportList = document.getElementById('transport-list');
 
 // Создание объектов на основе данных из массива 'data' и добавление их на страницу
 
-data.forEach(item => {
+function dispayMainInfo(object) {
+    const infoItem = createListItem(object.getInfo());
+    const priceItem = createListItem(object.getPrice());
+    transportList.appendChild(infoItem);
+    transportList.appendChild(priceItem);
+}
+
+data.forEach((item) => {
     let transport;
 
     if (item.type === 'car') {
         transport = new Car(item.type, item.price, item.brand, item.doors);
-        const infoItem = createListItem(transport.getInfo());
-        const priceItem = createListItem(transport.getPrice());
-        const doorsItem = createListItem(transport.getDoorsCount());
+        dispayMainInfo(transport);
 
-        transportList.appendChild(infoItem);
-        transportList.appendChild(priceItem);
+        const doorsItem = createListItem(transport.getDoorsCount());
         transportList.appendChild(doorsItem);
     } else if (item.type === 'bike') {
         transport = new Bike(item.type, item.price, item.brand, item.maxSpeed);
-        const infoItem = createListItem(transport.getInfo());
-        const priceItem = createListItem(transport.getPrice());
-        const maxSpeedItem = createListItem(transport.getMaxSpeed());
+        dispayMainInfo(transport);
 
-        transportList.appendChild(infoItem);
-        transportList.appendChild(priceItem);
+        const maxSpeedItem = createListItem(transport.getMaxSpeed());
         transportList.appendChild(maxSpeedItem);
     }
 
@@ -149,3 +150,4 @@ data.forEach(item => {
         transportList.appendChild(imageItem);
     }
 });
+
